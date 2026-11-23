@@ -1,0 +1,17 @@
+Bug Report 3: No Option to Increase Product Quantity in Cart
+
+Severity: Low
+ Reason: Reduces usability by forcing users to return to the product page to add more quantities.
+
+Steps to Reproduce:
+
+Login with valid credentials.
+Add a product to the cart.
+Navigate to the Cart page.
+Review available cart actions.
+
+Expected Result:
+ Users should be able to increase or decrease product quantity directly from the Cart page.
+
+Actual Result:
+ No option is available on the Cart page to modify product quantity. Users must navigate back to the product listing page to add additional quantities.
