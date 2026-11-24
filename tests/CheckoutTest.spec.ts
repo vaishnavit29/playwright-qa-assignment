@@ -1,9 +1,9 @@
 import {test , expect, Locator} from "@playwright/test";
-import { Reusable } from "../utils/Reusable.ts";
+import { LoginPage } from "../pages/LoginPage.ts";
 import Data from "../testData/Data.json";
 
 test("Verify user is able to order a single product successfully",async({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
@@ -31,7 +31,7 @@ test("Verify user is able to order a single product successfully",async({page})=
 })
 
 test("Verify user is able to order multiple products successfully",async({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
@@ -66,7 +66,7 @@ test("Verify user is able to order multiple products successfully",async({page})
 
 
 test("Verify user is unable to proceed with checkout when cart is empty",async({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
@@ -75,7 +75,7 @@ test("Verify user is unable to proceed with checkout when cart is empty",async({
 })
 
 test("Verify user is unable to continue with checkout when user information is not provided",async({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
