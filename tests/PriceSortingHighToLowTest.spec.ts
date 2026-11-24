@@ -1,17 +1,14 @@
 import {test,expect,Locator} from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage.ts";
+import { ProductPage } from "../pages/ProductPage.ts";
 import Data from "../testData/Data.json";
 
 test("Verify user is able to sort price from highest to lowest",async({page})=>{
-    const login=new LoginPage();
-     await login.Url(page);
-     await login.login(page,Data.validUser.username,
-      Data.validUser.password);
-     await expect(page.getByText('Products')).toBeVisible();
-    //  const items_beforesort=await page.locator('.inventory_item_price').all();
-    //  for(const item of items_beforesort){
-    //     console.log(await item.textContent());
-    //  }
+    const login=new LoginPage(page);
+     await login.Url();
+     await login.login(Data.validUser.username,Data.validUser.password);
+     const product=new ProductPage(page);
+     await expect(product.ProductsTxt).toBeVisible();
      const sortOpt:Locator=page.locator('.product_sort_container')
      await sortOpt.click();
      await sortOpt.selectOption('Price (high to low)');
