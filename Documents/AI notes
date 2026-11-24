@@ -1,0 +1,18 @@
+AI Notes
+
+I used ChatGPT and Microsoft Copilot during both test design and automation development.
+
+Test Design
+Generated initial test scenarios for the Swag Labs checkout flow.
+Identified positive, negative, and edge test cases.
+Improved the structure and wording of the test plan, test cases, and bug reports.
+
+Automation
+Assisted with Playwright framework setup using TypeScript.
+Suggested Page Object Model (POM) structure and locator organization.
+Helped create Playwright test scripts, assertions, and GitHub Actions CI/CD workflow configuration.
+Assisted in troubleshooting Playwright and Git issues during implementation.
+
+
+Validation
+All AI-generated test cases, bug reports, and automation code were manually reviewed, tested, and updated where necessary before being included in the final submission.

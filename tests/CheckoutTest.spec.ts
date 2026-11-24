@@ -1,10 +1,11 @@
 import {test , expect, Locator} from "@playwright/test";
-import { Reusable } from "./Reusable.ts";
+import { Reusable } from "../utils/Reusable.ts";
+import Data from "../testData/Data.json";
 
 test("Verify user is able to order a single product successfully",async({page})=>{
     const login=new Reusable();
      await login.Url(page);
-     await login.login(page,"standard_user","secret_sauce");
+     await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
     const AddtoCart:Locator= page.locator('.inventory_item_description')
   .filter({ hasText: 'Sauce Labs Backpack' })
@@ -32,7 +33,7 @@ test("Verify user is able to order a single product successfully",async({page})=
 test("Verify user is able to order multiple products successfully",async({page})=>{
     const login=new Reusable();
      await login.Url(page);
-     await login.login(page,"standard_user","secret_sauce");
+     await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
     const AddtoCart1:Locator= page.locator('.inventory_item_description')
   .filter({ hasText: 'Sauce Labs Backpack' })
@@ -51,6 +52,7 @@ test("Verify user is able to order multiple products successfully",async({page})
     const CheckoutOpt:Locator=page.getByRole('button',{name:'Checkout'})
     await CheckoutOpt.click();
     await expect(page.getByText('Checkout: Your Information')).toBeVisible();
+
     await page.getByPlaceholder('First Name').fill("Vaishnavi");
     await page.getByPlaceholder('Last Name').fill("Tandle");
     await page.getByPlaceholder('Zip/Postal Code').fill("75034");
@@ -66,7 +68,7 @@ test("Verify user is able to order multiple products successfully",async({page})
 test("Verify user is unable to proceed with checkout when cart is empty",async({page})=>{
     const login=new Reusable();
      await login.Url(page);
-     await login.login(page,"standard_user","secret_sauce");
+     await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
     await page.locator('.shopping_cart_link').click();
     await expect(page.getByRole('button',{name:'Checkout'})).toBeHidden();
@@ -75,7 +77,7 @@ test("Verify user is unable to proceed with checkout when cart is empty",async({
 test("Verify user is unable to continue with checkout when user information is not provided",async({page})=>{
     const login=new Reusable();
      await login.Url(page);
-     await login.login(page,"standard_user","secret_sauce");
+     await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
     const AddtoCart:Locator= page.locator('.inventory_item_description')
   .filter({ hasText: 'Sauce Labs Backpack' })

@@ -1,15 +1,13 @@
 import {test,expect,Locator} from "@playwright/test";
-import { Reusable } from "./Reusable.ts";
+import { Reusable } from "../utils/Reusable.ts";
+import Data from "../testData/Data.json";
 
 test("Verify user is able to sort pricde from lowest to higest",async({page})=>{
     const login=new Reusable();
      await login.Url(page);
-     await login.login(page,"standard_user","secret_sauce");
+     await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
-    //  const items_beforesort=await page.locator('.inventory_item_price').all();
-    //  for(const item of items_beforesort){
-    //     console.log(await item.textContent());
-    //  }
+
      const sortOpt:Locator=page.locator('.product_sort_container')
      await sortOpt.click();
      await sortOpt.selectOption('Price (low to high)');
@@ -19,7 +17,7 @@ test("Verify user is able to sort pricde from lowest to higest",async({page})=>{
      }
      const first_val=await page.locator('.inventory_item_price').nth(0).innerText();
      const first_val_removal=( first_val).replace("$",""); 
-     const second_val=await page.locator('.inventory_item_price').nth(1).innerText();
+     const second_val=await page.locator('.inventory_item_price').nth(items.length - 1).innerText();
      const second_val_removal=(second_val).replace("$","");
 
      expect(Number(first_val_removal)).toBeLessThanOrEqual(Number(second_val_removal));
@@ -28,12 +26,4 @@ test("Verify user is able to sort pricde from lowest to higest",async({page})=>{
       console.log("Second values is "+Number(second_val_removal));
       console.log("first value is less");
      }
-
-
-
-
-    // if(page.locator('.inventory_item_price').nth(0).innerText()<=page.locator('.inventory_item_price').
-    // nth(1).innerText()){
-    //     console.log("sorting success");
-    // }
 })
