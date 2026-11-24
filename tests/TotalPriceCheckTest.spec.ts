@@ -1,9 +1,9 @@
 import {test , expect, Locator} from "@playwright/test";
-import { Reusable } from "../utils/Reusable.ts";
+import { LoginPage } from "../pages/LoginPage.ts";
 import Data from "../testData/Data.json";
 
 test("Verify user is displayed with correct total price",async({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();

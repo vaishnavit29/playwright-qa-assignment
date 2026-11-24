@@ -1,15 +1,15 @@
 import {test, expect,Locator} from "@playwright/test";
-import { Reusable } from "../utils/Reusable.ts";
+import { LoginPage } from "../pages/LoginPage.ts";
 import Data from "../testData/Data.json";
 
 test("Verify user is able to login into application successfully", async ({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
 })
 test("Verify user is unable to login into application when user's account is locked", async ({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await login.login(page,Data.invalidUser.locked_out_user.username,
         Data.invalidUser.locked_out_user.password);
@@ -19,7 +19,7 @@ test("Verify user is unable to login into application when user's account is loc
 
 })
 test("Verify user is login is not enabled when username and password not entered", async ({page})=>{
-    const login=new Reusable();
+    const login=new LoginPage();
      await login.Url(page);
      await expect(page.getByRole('button',{name:'Login'})).toBeDisabled();
      //await login.login(page,"locked_out_user","secret_sauce");

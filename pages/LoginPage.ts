@@ -1,6 +1,6 @@
 import { expect, Page} from "@playwright/test";
 
-export class Reusable{
+export class LoginPage{
 
      async Url(page:Page){
             await page.goto("https://www.saucedemo.com/");
