@@ -12,6 +12,10 @@
   "problem_user": {
     "username": "problem_user",
     "password": "secret_sauce"
+  }},
+  "user_information": {
+    "firstName": "Vaishnavi",
+    "lastName": "Tandle",
+    "postalCode": "411033"
   }
-}
 }
