@@ -4,7 +4,6 @@ Severity: Low
  Reason: Reduces usability by forcing users to return to the product page to add more quantities.
 
 Steps to Reproduce:
-
 Login with valid credentials.
 Add a product to the cart.
 Navigate to the Cart page.

@@ -4,7 +4,6 @@ Severity: Low
  Reason: Allows users to submit an invalid login request, resulting in unnecessary validation attempts.
 
 Steps to Reproduce:
-
 Open the login page.
 Leave the Username field empty.
 Leave the Password field empty.

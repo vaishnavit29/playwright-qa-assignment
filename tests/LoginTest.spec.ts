@@ -1,16 +1,18 @@
 import {test, expect,Locator} from "@playwright/test";
-import { Reusable } from "./Reusable.ts";
+import { Reusable } from "../utils/Reusable.ts";
+import Data from "../testData/Data.json";
 
 test("Verify user is able to login into application successfully", async ({page})=>{
     const login=new Reusable();
      await login.Url(page);
-     await login.login(page,"standard_user","secret_sauce");
+     await login.login(page,Data.validUser.username,Data.validUser.password);
      await expect(page.getByText('Products')).toBeVisible();
 })
 test("Verify user is unable to login into application when user's account is locked", async ({page})=>{
     const login=new Reusable();
      await login.Url(page);
-     await login.login(page,"locked_out_user","secret_sauce");
+     await login.login(page,Data.invalidUser.locked_out_user.username,
+        Data.invalidUser.locked_out_user.password);
      const error:Locator=page.locator('[data-test="error"]')
      const error_message:string=await error.innerText();
     expect(error_message).toContain("this user has been locked out");
