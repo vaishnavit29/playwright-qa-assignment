@@ -126,12 +126,48 @@ Sample Data:
 
 ---
 
+## Prerequisites
+
+Before running the tests, ensure the following are installed:
+
+- Node.js (v18 or higher)
+- Visual Studio Code
+- Git
+
+Verify installation:
+
+```bash
+node -v
+npm -v
+git --version
+```
+
+---
+
 ## Running Tests Locally
+
+### Clone Repository
+
+```bash
+git clone https://github.com/vaishnavit29/playwright-qa-assignment-UI.git
+```
+
+### Navigate to Project
+
+```bash
+cd playwright-qa-assignment-UI
+```
 
 ### Install Dependencies
 
 ```bash
 npm install
+```
+
+### Install Playwright Browsers
+
+```bash
+npx playwright install
 ```
 
 ### Execute All Tests
@@ -162,7 +198,7 @@ npx playwright test --headed
 
 ## Reporting
 
-Generate and view Playwright HTML Report:
+Generate and view the Playwright HTML Report:
 
 ```bash
 npx playwright show-report
@@ -176,15 +212,18 @@ playwright-report/index.html
 
 ---
 
-## CI/CD Integration
+## CI/CD
 
-GitHub Actions is configured to automatically execute Playwright tests on every Pull Request.
+GitHub Actions is configured to automatically execute the test suite on every Pull Request.
 
-Workflow File:
+Workflow file:
 
 ```text
 .github/workflows/playwright.yml
 ```
+
+---
+
 
 ### Workflow Steps
 
