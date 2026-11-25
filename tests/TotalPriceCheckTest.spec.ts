@@ -1,37 +1,32 @@
-import {test , expect, Locator} from "@playwright/test";
+import {test , expect} from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage.ts";
+import { ProductPage } from "../pages/ProductPage.ts";
+import { CartPage } from "../pages/CartPage.ts";
+import { CheckoutPage } from "../pages/CheckoutPage.ts";
 import Data from "../testData/Data.json";
 
 test("Verify user is displayed with correct total price",async({page})=>{
-    const login=new LoginPage();
-     await login.Url(page);
-     await login.login(page,Data.validUser.username,Data.validUser.password);
-     await expect(page.getByText('Products')).toBeVisible();
-    const AddtoCart:Locator= page.locator('.inventory_item_description')
-  .filter({ hasText: 'Sauce Labs Backpack' })
-  .getByRole('button', { name: 'Add to cart' })
-    //AddtoCart:Locator=page.Locator('.inventory_item_description').filter({hasText:'Sauce Labs Backpack'}).
-    // getByRole('button', { name: 'Add to cart' });
-    await expect(AddtoCart).toBeVisible();
-    await AddtoCart.click();
-    await page.locator('.shopping_cart_link').click();
-    const RemoveOpt:Locator=page.getByRole('button',{name:'Remove'})
-    expect(RemoveOpt).toBeVisible();
-    const CheckoutOpt:Locator=page.getByRole('button',{name:'Checkout'})
-    await CheckoutOpt.click();
-    await expect(page.getByText('Checkout: Your Information')).toBeVisible();
-    await page.getByPlaceholder('First Name').fill("Vaishnavi");
-    await page.getByPlaceholder('Last Name').fill("Tandle");
-    await page.getByPlaceholder('Zip/Postal Code').fill("75034");
-    await page.getByRole('button',{name:'Continue'}).click();
-    await expect(page.getByText('Checkout: Overview')).toBeVisible();
-    const ItemPriceLoc:Locator=page.locator('.summary_subtotal_label')
-    const TaxLoc:Locator=page.locator('.summary_tax_label')
-    const TotalPriceLoc:Locator=page.locator('.summary_total_label')
-
-    const ItemPrice_$=await ItemPriceLoc.innerText();
-    const Tax_$=await TaxLoc.innerText();
-    const TotalPrice_$=await TotalPriceLoc.innerText();
+    const login=new LoginPage(page);
+     await login.Url();
+     await login.login(Data.validUser.username,Data.validUser.password);
+     const product=new ProductPage(page);
+     await expect(product.ProductsTxt).toBeVisible();
+    await expect(product.AddtoCartBackpackBtn).toBeVisible();
+    await product.AddtoCartBackpackBtn.click();
+    await product.CartIcon.click();
+    const cart=new CartPage(page);
+    await expect(cart.RemoveBackpackBtn).toBeVisible();
+    await cart.CheckoutBtn.click();
+  const checkout=new CheckoutPage(page);
+    await expect(checkout.YourInforTxt).toBeVisible();
+    await checkout.FirstName.fill(Data.user_information.firstName);
+    await checkout.LastName.fill(Data.user_information.lastName);
+    await checkout.PostalCode.fill(Data.user_information.postalCode);
+    await checkout.ContinueBtn.click();
+    await expect(checkout.OverviewTxt).toBeVisible();
+    const ItemPrice_$=await checkout.ItemPriceTxt.innerText();
+    const Tax_$=await checkout.TaxTxt.innerText();
+    const TotalPrice_$=await checkout.TotalPriceTxt.innerText();
 
     const ItemPrice=Number(ItemPrice_$.replace("Item total: $",""));
     const Tax=Number(Tax_$.replace("Tax: $",""));
@@ -44,8 +39,8 @@ test("Verify user is displayed with correct total price",async({page})=>{
         console.log("Tax is "+Tax);
         console.log("Total Price is "+TotalPrice);
     }
-    await page.getByRole('button',{name:'Finish'}).click();
-    await expect(page.getByText('Thank you for your order!')).toBeVisible();
-    console.log(await page.getByText('Thank you for your order!').innerText());
+    await checkout.FinishBtn.click();
+    await expect(checkout.ThankYouTxt).toBeVisible();
+    console.log(await checkout.ThankYouTxt.innerText());
 }
 )

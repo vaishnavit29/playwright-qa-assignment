@@ -9,8 +9,10 @@ export class ProductPage{
     readonly CartIcon:Locator;
     readonly MenuBtn:Locator;
     readonly LogoutBtn:Locator;
+    readonly Items:Locator;
+    readonly SortOpt:Locator;
 
-constructor(page:Page){
+ constructor(page:Page){
     this.page=page;
     this.ProductsTxt=page.getByText('Products');
     this.AddtoCartBackpackBtn=page.locator('.inventory_item_description')
@@ -22,6 +24,11 @@ constructor(page:Page){
   this.CartIcon=page.locator('.shopping_cart_link');
   this.MenuBtn=page.getByRole('button',{name:'Open Menu'});
   this.LogoutBtn=page.locator('#logout_sidebar_link').getByText('Logout');
+   this.Items= page.locator('.inventory_item_price');
+   this.SortOpt=page.locator('.product_sort_container');
+
+
+
 }
 
 }

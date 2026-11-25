@@ -25,42 +25,46 @@ To validate the core functionality of the Swag Labs application through automate
 ---
 
 ## Project Structure
-
-```text
-Demo
+Demo/
 │
-├── .github
-│   └── workflows
-│       └── playwright.yml
+├── .github/
+│   └── workflows/
+│       └── playwright.yml          # GitHub Actions CI workflow
 │
-├── documents
-│   ├── Bug Reports
-│   ├── AI notes
-│   └── Test Plan.xlsx
+├── documents/
+│   ├── Bug Reports/                # Defects identified during testing
+│   ├── AI notes/                   # Project notes and observations
+│   └── Test Plan.xlsx              # Test plan document
 │
-├── testData
+├── pages/                          # Page Object Model (POM) classes
+│   ├── CartPage.ts
+│   ├── CheckoutPage.ts
+│   ├── LoginPage.ts
+│   └── ProductPage.ts
+│
+├── testData/                       # Test data files
 │   └── Data.json
 │
-├── tests
-│   ├── LoginTest.spec.ts
-│   ├── HomePageTest.spec.ts
+├── tests/                          # Test scripts
 │   ├── AddToCartTest.spec.ts
-│   ├── RemoveItemFromCartTest.spec.ts
-│   ├── PriceSortingLowToHighTest.spec.ts
-│   ├── PriceSortingHighToLowTest.spec.ts
 │   ├── CheckoutTest.spec.ts
-│   ├── TotalPriceCheckTest.spec.ts
-│   └── LogoutTest.spec.ts
+│   ├── HomePageTest.spec.ts
+│   ├── LoginTest.spec.ts
+│   ├── LogoutTest.spec.ts
+│   ├── PriceSortingHighToLowTest.spec.ts
+│   ├── PriceSortingLowToHighTest.spec.ts
+│   ├── RemovalItemFromCartTest.spec.ts
+│   └── TotalPriceCheckTest.spec.ts
 │
-├── utils
-│   └── Reusable.ts
+├── playwright-report/              # HTML test reports
+├── test-results/                   # Execution results and artifacts
+├── node_modules/                   # Project dependencies
 │
-├── playwright-report
-├── test-results
-├── playwright.config.ts
+├── .gitignore
 ├── package.json
+├── package-lock.json
+├── playwright.config.ts            # Playwright configuration
 └── README.md
-```
 
 ---
 
