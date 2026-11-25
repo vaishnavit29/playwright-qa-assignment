@@ -11,6 +11,9 @@ export class CheckoutPage{
     readonly ContinueBtn:Locator;
     readonly FinishBtn:Locator;
     readonly ThankYouTxt:Locator;
+    readonly ItemPriceTxt:Locator;
+    readonly TaxTxt:Locator
+    readonly TotalPriceTxt:Locator;
 
     constructor(page:Page){
         this.page=page;
@@ -22,6 +25,9 @@ export class CheckoutPage{
         this.ContinueBtn=page.getByRole('button', { name: 'Continue' });
         this.OverviewTxt=page.getByText('Checkout: Overview');
         this.ThankYouTxt=page.getByText('Thank you for your order!');
+        this.ItemPriceTxt=page.locator('.summary_subtotal_label');
+        this.TaxTxt=page.locator('.summary_tax_label');
+        this.TotalPriceTxt=page.locator('.summary_total_label');
 
     }
 

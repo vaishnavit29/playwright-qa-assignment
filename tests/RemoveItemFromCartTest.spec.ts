@@ -1,24 +1,22 @@
-import {test , expect, Locator} from "@playwright/test";
+import {test , expect} from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage.ts";
+import { ProductPage } from "../pages/ProductPage.ts";
+import { CartPage } from "../pages/CartPage.ts";
 import Data from "../testData/Data.json";
 
 test("Verify user is able to remove a product in the cart",async({page})=>{
-    const login=new LoginPage();
-     await login.Url(page);
-     await login.login(page,Data.validUser.username,Data.validUser.password);
-     await expect(page.getByText('Products')).toBeVisible();
-    const AddtoCart:Locator= page.locator('.inventory_item_description')
-  .filter({ hasText: 'Sauce Labs Backpack' })
-  .getByRole('button', { name: 'Add to cart' })
-    //AddtoCart:Locator=page.Locator('.inventory_item_description').filter({hasText:'Sauce Labs Backpack'}).
-    // getByRole('button', { name: 'Add to cart' });
-    await expect(AddtoCart).toBeVisible();
-    await AddtoCart.click();
-    await page.locator('.shopping_cart_link').click();
-    const RemoveOpt:Locator=page.getByRole('button',{name:'Remove'})
-    expect(RemoveOpt).toBeVisible();
-    await RemoveOpt.click();
-    expect(RemoveOpt).toBeHidden();
+    const login=new LoginPage(page);
+     await login.Url();
+     await login.login(Data.validUser.username,Data.validUser.password);
+     const product=new ProductPage(page);
+     await expect(product.ProductsTxt).toBeVisible();
+    await expect(product.AddtoCartBackpackBtn).toBeVisible();
+    await product.AddtoCartBackpackBtn.click();
+    await product.CartIcon.click();
+    const cart=new CartPage(page);
+    await expect(cart.RemoveBackpackBtn).toBeVisible();
+    await cart.RemoveBackpackBtn.click();
+    await expect(cart.RemoveBackpackBtn).toBeHidden();
 
 })
 
